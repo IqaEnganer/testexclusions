@@ -3,6 +3,7 @@ package repository;
 import domain.Book;
 import domain.Product;
 import domain.SmartPhone;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,44 +29,24 @@ class ProductRepositoryTest {
     private SmartPhone s1 = new SmartPhone(15, "Som-Phone", 15000, "Japan");
 
 
-    @Test
-    public void showSaveBooks() {
-        repository.save(b);
-        repository.save(b2);
-        repository.save(b3);
-        repository.save(book);
-
-
-        Product[] expected = new Product[]{b, b2, b3, book};
-        Product[] actual = repository.findAll();
-        assertArrayEquals(expected, actual);
-    }
-
-    @Test
-    public void showSaveBooksReverse() {
-        repository.save(b);
-        repository.save(b2);
-        repository.save(b3);
-        repository.save(s);
-        repository.removeById(3);
-
-        Product[] expected = new Product[]{b, b3, s};
-        Product[] actual = repository.findAll();
-        assertArrayEquals(expected, actual);
-    }
-
-    @Test
-    public void showFindById() {
+    @BeforeEach
+    public void setup() {
         repository.save(b1);
-        Product[] expected = new Product[]{b1};
-        Product[] actual = repository.findAll();
-        assertArrayEquals(expected, actual);
+        repository.save(s1);
+        repository.save(s);
     }
 
     @Test
-    public void getSetProduct() {
-        book.setName("Amoterasu");
-        assertEquals("Amoterasu", book.getName());
+    public void shouldDeletingExistingById() {
+        repository.removeById(15);
+        assertArrayEquals(new Product[]{b1, s}, repository.findAll());
     }
 
+    @Test
+    public void shouldDeleteNotExistingById() {
+        assertThrows(NotFoundException.class, () -> {
+            repository.removeById(20);
+        });
+    }
 }
+
