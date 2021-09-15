@@ -50,7 +50,7 @@
                             <goal>report</goal>
                         </goals>
                     </execution>
-                    <execution>
+                   <!-- <execution>
                         <id>checkVery</id>
                         <phase>verify</phase>
                         <goals>
@@ -72,7 +72,7 @@
                                 </rules>
                             </rules>
                         </configuration>
-                    </execution>
+                    </execution>-->
                 </executions>
             </plugin>
             <plugin>

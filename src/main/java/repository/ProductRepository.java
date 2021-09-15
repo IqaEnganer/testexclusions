@@ -19,10 +19,6 @@ public class ProductRepository {
         return products;
     }
 
-    public void removeAll(){
-        Product[] product = new Product[0];
-        products = product;
-    }
 
     public void removeById(int id) {
         int length = products.length - 1;
